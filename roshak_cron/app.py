@@ -1,4 +1,7 @@
-from canvas import app
+import canvas.vote.cron as vote
+
 
 if __name__ == '__main__':
-    app.run()
+    vote.inkbolt_ac()
+    vote.inkbolt_wd2()
+    vote.inkbolt_fh()

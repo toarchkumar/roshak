@@ -127,14 +127,11 @@ def inkbolt_wd2():
 
         image.format = 'png'
         image = image.make_blob()
-        output.put_object(Key=f'static/canvas/vote/output/wd2_{uplayid}.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
-
-    return f.redirect(f'https://s3.us-east-2.amazonaws.com/roshak/static/canvas/vote/output/wd2_{uplayid}.png')
+        output.put_object(Key=f'static/canvas/vote/output/wd2.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
 
 # fh vote count image:
 def inkbolt_fh():
     # params:
-    uplayid = f.request.args.get('uplayid')
     get_votes = get_vote_count('fh')
     get_total_votes = get_total_vote_count()
     percentage = np.divide(get_votes, get_total_votes)
@@ -177,6 +174,4 @@ def inkbolt_fh():
 
         image.format = 'png'
         image = image.make_blob()
-        output.put_object(Key=f'static/canvas/vote/output/fh_{uplayid}.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
-
-    return f.redirect(f'https://s3.us-east-2.amazonaws.com/roshak/static/canvas/vote/output/fh_{uplayid}.png')
+        output.put_object(Key=f'static/canvas/vote/output/fh.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
