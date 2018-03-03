@@ -6,4 +6,4 @@ app = f.Flask(__name__)
 from canvas.vote.views import mod
 
 # blueprint registrations
-app.register_blueprint(vote.views.mod, url_prefix='/voter')
+app.register_blueprint(vote.views.mod, url_prefix='/vote')

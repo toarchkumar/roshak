@@ -3,7 +3,7 @@
         "app_function": "app.app",
         "aws_region": "us-east-2",
         "profile_name": "default",
-        "project_name": "roshak",
+        "project_name": "roshaklive",
         "runtime": "python3.6",
         "s3_bucket": "roshak"
     }
