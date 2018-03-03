@@ -4,7 +4,6 @@
 <a href="http://www.movable-ink-9009.com/p/cp/9faae37c33afff1b/c?mi_u=<%= INDIVIDUAL.UPLAY_ID %>&url=http%3A%2F%2Fwww.movable-ink-9009.com%2Fp%2Frp%2F915836c7443e599a%2Furl" style="display: block;"><img alt="Display images to show real-time content" style="border: 0; display: block;" border="0" src="http://www.movable-ink-9009.com/p/rp/915836c7443e599a.png?mi_u=<%= INDIVIDUAL.UPLAY_ID %>" /></a>
 '''
 # import main stuff:
-import flask as f
 import sqlalchemy as sq
 import pandas as pd
 import numpy as np
@@ -20,7 +19,6 @@ np.seterr(divide='ignore', invalid='ignore')
 
 # configs:
 engine = sq.create_engine('postgresql://toarchkumar:4gb9003k@roshakdev.cpfpv5mxcvkq.us-east-2.rds.amazonaws.com:5432/roshakdev', convert_unicode=True)
-mod = f.Blueprint('vote', __name__, static_folder='static')
 
 # rds query function:
 def get_vote_count(game):
@@ -38,10 +36,8 @@ def get_total_vote_count():
     return float(get['votes'])
 
 # ac vote count image:
-@mod.route('/inkbolt_ac.png')
 def inkbolt_ac():
     # params:
-    uplayid = f.request.args.get('uplayid')
     get_votes = get_vote_count('ac')
     get_total_votes = get_total_vote_count()
     percentage = np.divide(get_votes, get_total_votes)
@@ -84,15 +80,11 @@ def inkbolt_ac():
 
         image.format = 'png'
         image = image.make_blob()
-        output.put_object(Key=f'static/canvas/vote/output/ac_{uplayid}.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
-
-    return f.redirect(f'https://s3.us-east-2.amazonaws.com/roshak/static/canvas/vote/output/ac_{uplayid}.png')
+        output.put_object(Key=f'static/canvas/vote/output/ac.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
 
 # wd2 vote count image:
-@mod.route('/inkbolt_wd2.png')
 def inkbolt_wd2():
     # params:
-    uplayid = f.request.args.get('uplayid')
     get_votes = get_vote_count('wd2')
     get_total_votes = get_total_vote_count()
     percentage = np.divide(get_votes, get_total_votes)
@@ -140,7 +132,6 @@ def inkbolt_wd2():
     return f.redirect(f'https://s3.us-east-2.amazonaws.com/roshak/static/canvas/vote/output/wd2_{uplayid}.png')
 
 # fh vote count image:
-@mod.route('/inkbolt_fh.png')
 def inkbolt_fh():
     # params:
     uplayid = f.request.args.get('uplayid')
@@ -189,26 +180,3 @@ def inkbolt_fh():
         output.put_object(Key=f'static/canvas/vote/output/fh_{uplayid}.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
 
     return f.redirect(f'https://s3.us-east-2.amazonaws.com/roshak/static/canvas/vote/output/fh_{uplayid}.png')
-
-# voting logic:
-@mod.route('/vote')
-def vote():
-    uplayid = f.request.args.get('uplayid')
-    vote = f.request.args.get('vote')
-    url = f.request.args.get('url')
-
-    data = {
-        'uplayid' : [uplayid],
-        'vote' : [vote]
-    }
-    get = pd.DataFrame(data)
-    get.to_sql('users', engine, if_exists='append', index=False)
-
-    return f.redirect(url)
-
-# header settings:
-@mod.after_request
-def add_header(response):
-    response.cache_control.max_age = 0
-    response.cache_control.no_store = True
-    return response
