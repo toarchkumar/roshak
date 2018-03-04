@@ -5,6 +5,7 @@
         "profile_name": "default",
         "project_name": "roshaklive",
         "runtime": "python3.6",
-        "s3_bucket": "roshak"
+        "s3_bucket": "roshak",
+        "keep_warm": "false"
     }
 }
