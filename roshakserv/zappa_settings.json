@@ -6,6 +6,7 @@
         "project_name": "roshakserv",
         "runtime": "python3.6",
         "s3_bucket": "roshak",
+        "keep_warm": "false",
         "events": [{
            "function": "app.app", // The function to execute
            "expression": "rate(5 minutes)" // When to execute it (in cron or rate format)
