@@ -6,6 +6,6 @@
         "project_name": "roshaklive",
         "runtime": "python3.6",
         "s3_bucket": "roshak",
-        "keep_warm": "false"
+        "keep_warm": false
     }
 }
