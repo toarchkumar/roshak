@@ -2,7 +2,7 @@
     "dev": {
         "app_function": "app.app",
         "aws_region": "us-east-2",
-        "profile_name": "default",
+        "profile_name": "a_ubi_crm_king",
         "project_name": "roshaklive",
         "runtime": "python3.6",
         "s3_bucket": "roshak",

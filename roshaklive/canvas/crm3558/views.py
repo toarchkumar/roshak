@@ -5,10 +5,10 @@ import pandas as pd
 import boto3
 
 # flask blueprint:
-mod = f.Blueprint('vote', __name__, static_folder='static')
+crm3558 = f.Blueprint('vote', __name__, static_folder='static')
 
 # voting logic:
-@mod.route('/vote')
+@crm3558.route('/vote')
 def vote():
     engine = sq.create_engine('postgresql://toarchkumar:4gb9003k@roshakdev.cpfpv5mxcvkq.us-east-2.rds.amazonaws.com:5432/roshakdev', convert_unicode=True)
     uplayid = f.request.args.get('uplayid')
