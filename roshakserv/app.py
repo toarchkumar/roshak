@@ -1,9 +1,9 @@
-import canvas.vote.cron as vote
+import canvas.crm3558.cron as crm3558
 
 def app():
-    vote.inkbolt_ac()
-    vote.inkbolt_wd2()
-    vote.inkbolt_fh()
+    crm3558.inkbolt_ac()
+    crm3558.inkbolt_wd2()
+    crm3558.inkbolt_fh()
 
 if __name__ == '__main__':
     app()

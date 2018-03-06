@@ -80,7 +80,7 @@ def inkbolt_ac():
 
         image.format = 'png'
         image = image.make_blob()
-        output.put_object(Key=f'static/canvas/vote/output/ac.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
+        output.put_object(Key=f'static/canvas/crm3558/output/ac.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
 
 # wd2 vote count image:
 def inkbolt_wd2():
@@ -127,7 +127,7 @@ def inkbolt_wd2():
 
         image.format = 'png'
         image = image.make_blob()
-        output.put_object(Key=f'static/canvas/vote/output/wd2.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
+        output.put_object(Key=f'static/canvas/crm3558/output/wd2.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
 
 # fh vote count image:
 def inkbolt_fh():
@@ -174,4 +174,4 @@ def inkbolt_fh():
 
         image.format = 'png'
         image = image.make_blob()
-        output.put_object(Key=f'static/canvas/vote/output/fh.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
+        output.put_object(Key=f'static/canvas/crm3558/output/fh.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
