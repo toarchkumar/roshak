@@ -18,10 +18,11 @@ def vote():
     if vote in ['ac', 'wd2', 'fh']:
         data = {
             'uplayid' : [uplayid],
-            'vote' : [vote]
+            'vote' : [vote],
+            'campaign_label' : 'PI-GRW-NCSA-E-BC-180313-3558-TU13PVP'
         }
         get = pd.DataFrame(data)
-        get.to_sql('users', engine, if_exists='append', index=False)
+        get.to_sql('vote_campaigns', engine, if_exists='append', index=False)
     else:
         pass
 

@@ -22,14 +22,14 @@ engine = sq.create_engine('postgresql://toarchkumar:4gb9003k@roshakdev.cpfpv5mxc
 
 # rds query function:
 def get_vote_count(game):
-    query = f"""select count(uplayid) as votes from users where vote = '{game}'"""
+    query = f"""select count(uplayid) as votes from vote_campaigns where vote = '{game}'"""
 
     get = pd.read_sql(query, engine)
 
     return float(get['votes'])
 
 def get_total_vote_count():
-    query = f"""select count(uplayid) as votes from users"""
+    query = f"""select count(uplayid) as votes from vote_campaigns"""
 
     get = pd.read_sql(query, engine)
 
