@@ -15,11 +15,14 @@ def vote():
     vote = f.request.args.get('vote')
     url = f.request.args.get('url')
 
-    data = {
-        'uplayid' : [uplayid],
-        'vote' : [vote]
-    }
-    get = pd.DataFrame(data)
-    get.to_sql('users', engine, if_exists='append', index=False)
+    if vote in ['ac', 'wd2', 'fh']:
+        data = {
+            'uplayid' : [uplayid],
+            'vote' : [vote]
+        }
+        get = pd.DataFrame(data)
+        get.to_sql('users', engine, if_exists='append', index=False)
+    else:
+        pass
 
     return f.redirect(url)
