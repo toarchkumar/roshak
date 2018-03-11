@@ -8,6 +8,7 @@ import sqlalchemy as sq
 import pandas as pd
 import numpy as np
 import boto3
+import io
 # import specific stuff:
 from urllib import request
 from wand.image import Image
@@ -17,11 +18,27 @@ from wand.color import Color
 # numpy divide by zero ignore:
 np.seterr(divide='ignore', invalid='ignore')
 
-# configs:
-engine = sq.create_engine('postgresql://toarchkumar:4gb9003k@roshakdev.cpfpv5mxcvkq.us-east-2.rds.amazonaws.com:5432/roshakdev', convert_unicode=True)
+# update rds from s3:
+def update_from_s3():
+    engine = sq.create_engine('postgresql://toarchkumar:4gb9003k@roshakdev.cpfpv5mxcvkq.us-east-2.rds.amazonaws.com:5432/roshakdev', convert_unicode=True)
+    s3 = boto3.resource('s3')
+    get_data = s3.Bucket('roshak')
+    master_data = pd.DataFrame()
+
+    objects = get_data.objects.filter(Prefix='static/canvas/crm3558/data')
+    for obj in objects:
+        data = obj.get()['Body']
+        data = io.BytesIO(data.read())
+        data = pd.read_csv(data)
+        master_data = master_data.append(data, ignore_index=True)
+        obj.delete()
+    
+    master_data.to_sql('vote_campaigns', engine, if_exists='append', index=False)
+
 
 # rds query function:
 def get_vote_count(game):
+    engine = sq.create_engine('postgresql://toarchkumar:4gb9003k@roshakdev.cpfpv5mxcvkq.us-east-2.rds.amazonaws.com:5432/roshakdev', convert_unicode=True)
     query = f"""select count(uplayid) as votes from vote_campaigns where vote = '{game}'"""
 
     get = pd.read_sql(query, engine)
@@ -29,6 +46,7 @@ def get_vote_count(game):
     return float(get['votes'])
 
 def get_total_vote_count():
+    engine = sq.create_engine('postgresql://toarchkumar:4gb9003k@roshakdev.cpfpv5mxcvkq.us-east-2.rds.amazonaws.com:5432/roshakdev', convert_unicode=True)
     query = f"""select count(uplayid) as votes from vote_campaigns"""
 
     get = pd.read_sql(query, engine)
