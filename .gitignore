@@ -1,2 +1,7 @@
 
+*.h
 *.pyc
+venv/
+*.png
+*.jpg
+*.exe
