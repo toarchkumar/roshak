@@ -13,7 +13,7 @@ def vote_to_s3(uplayid, vote):
     s3 = boto3.resource('s3')
     output = s3.Bucket('roshak')
 
-    if vote in ['ac', 'wd2', 'fh']:
+    if vote in ['m1', 'm2', 'm3', 'm4', 'm5']:
         data = {
             'uplayid' : [uplayid],
             'vote' : [vote],

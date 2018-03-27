@@ -45,19 +45,19 @@ def get_vote_count(game):
 
     return float(get['votes'])
 
-def get_total_vote_count():
+def get_total_vote_count(campaign):
     engine = sq.create_engine('postgresql://toarchkumar:4gb9003k@roshakdev.cpfpv5mxcvkq.us-east-2.rds.amazonaws.com:5432/roshakdev', convert_unicode=True)
-    query = f"""select count(uplayid) as votes from vote_campaigns"""
+    query = f"""select count(uplayid) as votes from vote_campaigns where campaign_label = '{campaign}'"""
 
     get = pd.read_sql(query, engine)
 
     return float(get['votes'])
 
 # ac vote count image:
-def inkbolt_ac():
+def inkbolt_m1():
     # params:
-    get_votes = get_vote_count('ac')
-    get_total_votes = get_total_vote_count()
+    get_votes = get_vote_count('m1')
+    get_total_votes = get_total_vote_count('PI-GRW-NCSA-E-BC-180313-3558-TU13PVP')
     percentage = np.divide(get_votes, get_total_votes)
 
     if np.isnan(percentage):
@@ -65,7 +65,7 @@ def inkbolt_ac():
 
     # image settings
     s3 = boto3.resource('s3')
-    input_image = request.urlopen('https://s3.us-east-2.amazonaws.com/roshak/static/canvas/vote/ac.png')
+    input_image = request.urlopen('https://s3.us-east-2.amazonaws.com/roshak/static/canvas/crm3558/GRW_MapVoting_1.gif')
     output = s3.Bucket('roshak')
 
     with Image() as image:
@@ -77,12 +77,12 @@ def inkbolt_ac():
 
             try:
                 with Image(file=input_image) as img:
-                    x = int(img.width * 0.6)
-                    y = int(img.height * 0.995)
+                    x = int(img.width * 0.55)
+                    y = int(img.height * 0.975)
 
                     # draw progress bar:
-                    draw.fill_color=Color('#a11701')
-                    draw.rectangle(left=img.width*0.11, top=img.height*0.9, width=177*percentage, height=img.height*0.2)
+                    draw.fill_color=Color('#e79c29')
+                    draw.rectangle(left=0, top=img.height*0.86, width=180*percentage, height=30)
                     draw.draw(img)
 
                     # write text percentage:
@@ -98,13 +98,12 @@ def inkbolt_ac():
 
         image.format = 'png'
         image = image.make_blob()
-        output.put_object(Key=f'static/canvas/crm3558/output/ac.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
+        output.put_object(Key=f'static/canvas/crm3558/output/GRW_MapVoting_1.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
 
-# wd2 vote count image:
-def inkbolt_wd2():
+def inkbolt_m2():
     # params:
-    get_votes = get_vote_count('wd2')
-    get_total_votes = get_total_vote_count()
+    get_votes = get_vote_count('m2')
+    get_total_votes = get_total_vote_count('PI-GRW-NCSA-E-BC-180313-3558-TU13PVP')
     percentage = np.divide(get_votes, get_total_votes)
 
     if np.isnan(percentage):
@@ -112,7 +111,7 @@ def inkbolt_wd2():
 
     # image settings
     s3 = boto3.resource('s3')
-    input_image = request.urlopen('https://s3.us-east-2.amazonaws.com/roshak/static/canvas/vote/wd2.png')
+    input_image = request.urlopen('https://s3.us-east-2.amazonaws.com/roshak/static/canvas/crm3558/GRW_MapVoting_2.png')
     output = s3.Bucket('roshak')
 
     with Image() as image:
@@ -124,12 +123,12 @@ def inkbolt_wd2():
 
             try:
                 with Image(file=input_image) as img:
-                    x = int(img.width * 0.5)
-                    y = int(img.height * 0.995)
+                    x = int(img.width * 0.55)
+                    y = int(img.height * 0.975)
 
                     # draw progress bar:
-                    draw.fill_color=Color('#c7c7c7')
-                    draw.rectangle(left=img.width*0.05, top=img.height*0.9, width=177*percentage, height=img.height*0.2)
+                    draw.fill_color=Color('#e79c29')
+                    draw.rectangle(left=0, top=img.height*0.86, width=180*percentage, height=30)
                     draw.draw(img)
 
                     # write text percentage:
@@ -145,13 +144,12 @@ def inkbolt_wd2():
 
         image.format = 'png'
         image = image.make_blob()
-        output.put_object(Key=f'static/canvas/crm3558/output/wd2.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
+        output.put_object(Key=f'static/canvas/crm3558/output/GRW_MapVoting_2.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
 
-# fh vote count image:
-def inkbolt_fh():
+def inkbolt_m3():
     # params:
-    get_votes = get_vote_count('fh')
-    get_total_votes = get_total_vote_count()
+    get_votes = get_vote_count('m3')
+    get_total_votes = get_total_vote_count('PI-GRW-NCSA-E-BC-180313-3558-TU13PVP')
     percentage = np.divide(get_votes, get_total_votes)
 
     if np.isnan(percentage):
@@ -159,7 +157,7 @@ def inkbolt_fh():
 
     # image settings
     s3 = boto3.resource('s3')
-    input_image = request.urlopen('https://s3.us-east-2.amazonaws.com/roshak/static/canvas/vote/fh.png')
+    input_image = request.urlopen('https://s3.us-east-2.amazonaws.com/roshak/static/canvas/crm3558/GRW_MapVoting_3.gif')
     output = s3.Bucket('roshak')
 
     with Image() as image:
@@ -171,12 +169,12 @@ def inkbolt_fh():
 
             try:
                 with Image(file=input_image) as img:
-                    x = int(img.width * 0.5)
-                    y = int(img.height * 0.995)
+                    x = int(img.width * 0.55)
+                    y = int(img.height * 0.975)
 
                     # draw progress bar:
-                    draw.fill_color=Color('#1d2366')
-                    draw.rectangle(left=0, top=img.height*0.9, width=177*percentage, height=img.height*0.2)
+                    draw.fill_color=Color('#e79c29')
+                    draw.rectangle(left=0, top=img.height*0.86, width=180*percentage, height=30)
                     draw.draw(img)
 
                     # write text percentage:
@@ -192,4 +190,96 @@ def inkbolt_fh():
 
         image.format = 'png'
         image = image.make_blob()
-        output.put_object(Key=f'static/canvas/crm3558/output/fh.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
+        output.put_object(Key=f'static/canvas/crm3558/output/GRW_MapVoting_3.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
+
+def inkbolt_m4():
+    # params:
+    get_votes = get_vote_count('m4')
+    get_total_votes = get_total_vote_count('PI-GRW-NCSA-E-BC-180313-3558-TU13PVP')
+    percentage = np.divide(get_votes, get_total_votes)
+
+    if np.isnan(percentage):
+        percentage = 0
+
+    # image settings
+    s3 = boto3.resource('s3')
+    input_image = request.urlopen('https://s3.us-east-2.amazonaws.com/roshak/static/canvas/crm3558/GRW_MapVoting_4.gif')
+    output = s3.Bucket('roshak')
+
+    with Image() as image:
+        with Drawing() as draw:
+            draw.font = "OpenSans.otf"
+            draw.font_size = 22
+            draw.text_alignment = "center"
+            draw.text_antialias = True
+
+            try:
+                with Image(file=input_image) as img:
+                    x = int(img.width * 0.55)
+                    y = int(img.height * 0.975)
+
+                    # draw progress bar:
+                    draw.fill_color=Color('#e79c29')
+                    draw.rectangle(left=0, top=img.height*0.86, width=180*percentage, height=30)
+                    draw.draw(img)
+
+                    # write text percentage:
+                    percentage = percentage * 100
+                    percentage = np.around(percentage, decimals=2)
+                    draw.fill_color=Color('black')
+                    draw.text(x, y, f'{percentage}%')
+                    draw.draw(img)
+                    
+                    image.sequence.append(img)
+            finally:
+                input_image.close()
+
+        image.format = 'png'
+        image = image.make_blob()
+        output.put_object(Key=f'static/canvas/crm3558/output/GRW_MapVoting_4.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
+
+def inkbolt_m5():
+    # params:
+    get_votes = get_vote_count('m5')
+    get_total_votes = get_total_vote_count('PI-GRW-NCSA-E-BC-180313-3558-TU13PVP')
+    percentage = np.divide(get_votes, get_total_votes)
+
+    if np.isnan(percentage):
+        percentage = 0
+
+    # image settings
+    s3 = boto3.resource('s3')
+    input_image = request.urlopen('https://s3.us-east-2.amazonaws.com/roshak/static/canvas/crm3558/GRW_MapVoting_5.gif')
+    output = s3.Bucket('roshak')
+
+    with Image() as image:
+        with Drawing() as draw:
+            draw.font = "OpenSans.otf"
+            draw.font_size = 22
+            draw.text_alignment = "center"
+            draw.text_antialias = True
+
+            try:
+                with Image(file=input_image) as img:
+                    x = int(img.width * 0.55)
+                    y = int(img.height * 0.975)
+
+                    # draw progress bar:
+                    draw.fill_color=Color('#e79c29')
+                    draw.rectangle(left=0, top=img.height*0.86, width=180*percentage, height=30)
+                    draw.draw(img)
+
+                    # write text percentage:
+                    percentage = percentage * 100
+                    percentage = np.around(percentage, decimals=2)
+                    draw.fill_color=Color('black')
+                    draw.text(x, y, f'{percentage}%')
+                    draw.draw(img)
+                    
+                    image.sequence.append(img)
+            finally:
+                input_image.close()
+
+        image.format = 'png'
+        image = image.make_blob()
+        output.put_object(Key=f'static/canvas/crm3558/output/GRW_MapVoting_5.png', Body=image, CacheControl='no-store, max-age=0', ContentType='image/png', ACL='public-read')
