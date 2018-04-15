@@ -5,3 +5,5 @@ venv/
 *.png
 *.jpg
 *.exe
+roshaklive/.DS_Store
+.DS_Store
